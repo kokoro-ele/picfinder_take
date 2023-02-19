@@ -18,7 +18,7 @@ from .config import threshold, SAUCENAO_KEY, SEARCH_TIMEOUT, CHAIN_REPLY, DAILY_
 if type(NICKNAME) == str:
     NICKNAME = [NICKNAME]
 
-sv = Service('picfinder', help_=helptext)
+sv = Service('picfinder', help_=helptext,enable_on_default=False)
 
 lmtd = DailyNumberLimiter(DAILY_LIMIT)
 logger = log.new_logger('image')
@@ -53,7 +53,7 @@ class PicListener:
 pls = PicListener()
 
 
-@sv.on_prefix(('识图', '搜图', '查图', '找图'), only_to_me=True)
+@sv.on_prefix(('识图', '搜图', '查图', '找图'), only_to_me=False)
 async def start_finder(bot, ev: CQEvent):
     uid = ev.user_id
     gid = ev.group_id
@@ -285,7 +285,7 @@ async def chain_reply(bot, ev, chain, msg):
         data = {
             "type": "node",
             "data": {
-                    "name": str(NICKNAME[0]) if str(NICKNAME[0]) else '竹竹',
+                    "name": str(NICKNAME[0]) if str(NICKNAME[0]) else '喵',
                     "user_id": str(ev.self_id),
                     "content": str(msg)
             }
